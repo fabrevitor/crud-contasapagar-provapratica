@@ -9,9 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Filial;
 
 public class FilialFormController implements Initializable{
 
+	private Filial entity;
+	
+	
 	@FXML
 	private TextField txtCodigo;
 	
@@ -26,6 +30,20 @@ public class FilialFormController implements Initializable{
 	
 	@FXML
 	private Button btCancelar;
+	
+	
+	public void setFilial(Filial entity) {
+		this.entity = entity;
+	}
+	
+	public void updateFormData() {
+		if(entity==null) {
+			throw new IllegalStateException("Entidade nula.");
+		}
+		
+		txtCodigo.setText(String.valueOf(entity.getCodigo()));
+		txtNome.setText(entity.getNome());
+	}
 	
 	@FXML
 	public void onBtSalvarAction() {
@@ -44,6 +62,7 @@ public class FilialFormController implements Initializable{
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		initializeNodes();
 	}
 	
 }

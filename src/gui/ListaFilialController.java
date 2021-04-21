@@ -50,7 +50,10 @@ public class ListaFilialController implements Initializable{
 		System.out.println("DebugConsole: onBtNovoAction");
 		
 		Stage parentStage = Utils.currentStage(event);		
-		createDialogForm("/gui/FilialForm.fxml", parentStage);
+		
+		Filial obj = new Filial();
+		
+		createDialogForm(obj, "/gui/FilialForm.fxml", parentStage);
 	}
 	
 	public void setFilialService(FilialService service) {
@@ -83,10 +86,14 @@ public class ListaFilialController implements Initializable{
 	}
 	
 	// Carregar Janela do Form
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Filial obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			FilialFormController controller = loader.getController();
+			controller.setFilial(obj);
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Digite os dados da Filial");
