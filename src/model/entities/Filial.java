@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Filial implements Serializable {
 
-	private static final long serialVersionUcodigo = 1L;
+	private static final long serialVersionUID = 1L;
 
 	private Integer codigo;
 	private String nome;
@@ -17,19 +17,19 @@ public class Filial implements Serializable {
 		this.nome = nome;
 	}
 
-	public Integer getcodigo() {
+	public Integer getCodigo() {
 		return codigo;
 	}
 
-	public void setcodigo(Integer codigo) {
+	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
 
-	public String getnome() {
+	public String getNome() {
 		return nome;
 	}
 
-	public void setnome(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
