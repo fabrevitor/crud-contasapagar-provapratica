@@ -11,6 +11,8 @@ public class FilialService {
 		List<Filial> list = new ArrayList<>();
 		list.add(new Filial(1,"Palhoça"));
 		list.add(new Filial(2,"São José"));
+		list.add(new Filial(3,"Floripa"));
+		list.add(new Filial(4,"Biguaçu"));
 		
 		return list;
 	}
