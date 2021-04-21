@@ -1,20 +1,18 @@
 package model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import model.dao.DaoFactory;
+import model.dao.FilialDao;
 import model.entities.Filial;
 
 public class FilialService {
 	
+	private FilialDao dao = DaoFactory.createFilialDao();
+	
+	
 	public List<Filial> findAll(){
-		List<Filial> list = new ArrayList<>();
-		list.add(new Filial(1,"Palhoça"));
-		list.add(new Filial(2,"São José"));
-		list.add(new Filial(3,"Floripa"));
-		list.add(new Filial(4,"Biguaçu"));
-		
-		return list;
+		return dao.findAll();
 	}
 	
 }
