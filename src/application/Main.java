@@ -16,7 +16,7 @@ public class Main extends Application {
 			Parent parent = loader.load();
 			Scene mainScene = new Scene(parent);
 			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("Sample JavaFX application");
+			primaryStage.setTitle("CRUD Contas a Pagar - Nexxera");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
