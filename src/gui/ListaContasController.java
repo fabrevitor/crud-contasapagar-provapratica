@@ -32,6 +32,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Contas;
 import model.services.ContasService;
+import model.services.FilialService;
 
 public class ListaContasController implements Initializable, DataChangeListener {
 
@@ -125,8 +126,8 @@ public class ListaContasController implements Initializable, DataChangeListener 
 
 			ContasFormController controller = loader.getController();
 			controller.setContas(obj);
-			controller.setContasService(new ContasService());
-
+			controller.setServices(new ContasService(), new FilialService());
+			controller.loadAssociatedObjetcs();
 			controller.subscribeDataChangeListener(this);
 
 			controller.updateFormData();
@@ -140,6 +141,7 @@ public class ListaContasController implements Initializable, DataChangeListener 
 			dialogStage.showAndWait();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alerts.showAlert("IO Exception", "Erro ao carregar tela", e.getMessage(), AlertType.ERROR);
 		}
 	}

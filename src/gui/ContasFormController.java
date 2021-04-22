@@ -15,147 +15,174 @@ import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
 import model.entities.Contas;
+import model.entities.Filial;
 import model.exceptions.ValidationException;
 import model.services.ContasService;
+import model.services.FilialService;
 
-public class ContasFormController implements Initializable{
+public class ContasFormController implements Initializable {
 
 	private Contas entity;
-	
+
 	private ContasService service;
-	
+
+	private FilialService filialService;
+
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
-	
+
 	@FXML
 	private TextField txtCodigo;
-	
+
 	@FXML
 	private TextField txtDescricao;
-	
+
 	@FXML
 	private DatePicker dpDataRegistro;
-	
+
 	@FXML
 	private CheckBox chkFoiPago;
-	
+
 	@FXML
 	private TextField txtValor;
-	
+
+	@FXML
+	private ComboBox<Filial> comboBoxFilial;
+
 	@FXML
 	private Label labelErrorDescricao;
-	
+
 	@FXML
 	private Label labelErrorDataRegistro;
-	
+
 	@FXML
 	private Label labelErrorFoiPago;
-	
+
 	@FXML
 	private Label labelErrorValor;
-	
+
 	@FXML
 	private Button btSalvar;
-	
+
 	@FXML
 	private Button btCancelar;
-	
-	
+
+	private ObservableList<Filial> obsList;
+
 	public void setContas(Contas entity) {
 		this.entity = entity;
 	}
-	
-	public void setContasService(ContasService service) {
+
+	public void setServices(ContasService service, FilialService filialService) {
 		this.service = service;
+		this.filialService = filialService;
 	}
-	
+
 	public void subscribeDataChangeListener(DataChangeListener listener) {
 		dataChangeListeners.add(listener);
 	}
-	
-	//Pega os dados do Form e coloca num Obj.
+
+	// Pega os dados do Form e coloca num Obj.
 	private Contas getFormData() {
 		Contas obj = new Contas();
-		
+
 		ValidationException exception = new ValidationException("Erro na validação.");
-		
+
 		obj.setCodigo(Utils.tryParseToInt(txtCodigo.getText()));
-		
-		if(txtDescricao.getText()==null||txtDescricao.getText().trim().equals("")) {
+
+		if (txtDescricao.getText() == null || txtDescricao.getText().trim().equals("")) {
 			exception.addError("Descricao", "O campo não pode ser vazio.");
 		}
-		
+
 		obj.setDescricao(txtDescricao.getText());
-		
-		if(exception.getErrors().size() > 0) {
+
+		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
-		
+
 		return obj;
 	}
-	
-	//Atualiza os dados do Form de acordo com o que tem em tela.
+
+	// Atualiza os dados do Form de acordo com o que tem em tela.
 	public void updateFormData() {
-		if(entity==null) {
+		if (entity == null) {
 			throw new IllegalStateException("Entidade nula.");
 		}
-		
+
 		txtCodigo.setText(String.valueOf(entity.getCodigo()));
 		txtDescricao.setText(entity.getDescricao());
-		
+
 		Locale.setDefault(Locale.US);
 		txtValor.setText(String.format("%.2f", entity.getValor()));
-		
+
 		// TODO
 		// Comentei o Set do CheckBox pois deu NullPointerException.
-		//chkFoiPago.setSelected(entity.getFoiPago());
+		// chkFoiPago.setSelected(entity.getFoiPago());
 		
-		if(entity.getDataRegistro()!= null) {
-			dpDataRegistro.setValue(LocalDate.ofInstant( entity.getDataRegistro().toInstant(), ZoneId.systemDefault()));
+		if (entity.getDataRegistro() != null) {
+			dpDataRegistro.setValue(LocalDate.ofInstant(entity.getDataRegistro().toInstant(), ZoneId.systemDefault()));
 		}
+		
+		if(entity.getFilial() == null) {
+			comboBoxFilial.getSelectionModel().selectFirst();
+		}else {
+			comboBoxFilial.setValue(entity.getFilial());
+		}
+		
 	}
-	
+
+	public void loadAssociatedObjetcs() {
+		List<Filial> list = filialService.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		comboBoxFilial.setItems(obsList);
+
+	}
+
 	@FXML
 	public void onBtSalvarAction(ActionEvent event) {
 		System.out.println("DebugConsole: onBtSalvarAction");
-		
-		if(entity == null) {
+
+		if (entity == null) {
 			throw new IllegalStateException("Entidade nula.");
-		}	
-		if(service == null) {
+		}
+		if (service == null) {
 			throw new IllegalStateException("Service nulo.");
 		}
-		
+
 		try {
 			entity = getFormData();
 			service.saveOrUpdate(entity);
-			
+
 			notifyDataChangeListeners();
-			
+
 			Utils.currentStage(event).close();
-		}
-		catch(ValidationException e){
+		} catch (ValidationException e) {
 			setErrorMessages(e.getErrors());
-		} 
-		catch (DbException e) {
+		} catch (DbException e) {
 			Alerts.showAlert("Erro ao salvar o objeto", null, e.getMessage(), AlertType.ERROR);
-		}	
+		}
 	}
-	
+
 	private void notifyDataChangeListeners() {
-		for(DataChangeListener listener : dataChangeListeners){
+		for (DataChangeListener listener : dataChangeListeners) {
 			listener.onDataChanged();
 		}
-		
+
 	}
 
 	@FXML
@@ -164,26 +191,37 @@ public class ContasFormController implements Initializable{
 		Utils.currentStage(event).close();
 	}
 
-	
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtCodigo);
 		Constraints.setTextFieldMaxLength(txtDescricao, 60);
 		Constraints.setTextFieldDouble(txtValor);
 		Utils.formatDatePicker(dpDataRegistro, "dd/MM/yyyy");
-		
-		
+
 	}
-	
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
 	}
-	
+
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
-		
+
 		if (fields.contains("Descricao")) {
 			labelErrorDescricao.setText(errors.get("Descricao"));
 		}
 	}
+
+	private void initializeComboBoxDepartment() {
+		Callback<ListView<Filial>, ListCell<Filial>> factory = lv -> new ListCell<Filial>() {
+			@Override
+			protected void updateItem(Filial item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : item.getNome());
+			}
+		};
+		comboBoxFilial.setCellFactory(factory);
+		comboBoxFilial.setButtonCell(factory.call(null));
+	}
+
 }
