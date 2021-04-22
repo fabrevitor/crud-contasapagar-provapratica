@@ -23,4 +23,8 @@ public class FilialService {
 		}
 	}
 	
+	public void remove(Filial obj) {
+		dao.deleteById(obj.getCodigo());
+	}
+	
 }
