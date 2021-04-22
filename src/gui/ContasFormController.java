@@ -1,8 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -17,6 +20,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Contas;
@@ -38,7 +43,25 @@ public class ContasFormController implements Initializable{
 	private TextField txtDescricao;
 	
 	@FXML
+	private DatePicker dpDataRegistro;
+	
+	@FXML
+	private CheckBox chkFoiPago;
+	
+	@FXML
+	private TextField txtValor;
+	
+	@FXML
 	private Label labelErrorDescricao;
+	
+	@FXML
+	private Label labelErrorDataRegistro;
+	
+	@FXML
+	private Label labelErrorFoiPago;
+	
+	@FXML
+	private Label labelErrorValor;
 	
 	@FXML
 	private Button btSalvar;
@@ -88,6 +111,17 @@ public class ContasFormController implements Initializable{
 		
 		txtCodigo.setText(String.valueOf(entity.getCodigo()));
 		txtDescricao.setText(entity.getDescricao());
+		
+		Locale.setDefault(Locale.US);
+		txtValor.setText(String.format("%.2f", entity.getValor()));
+		
+		// TODO
+		// Comentei o Set do CheckBox pois deu NullPointerException.
+		//chkFoiPago.setSelected(entity.getFoiPago());
+		
+		if(entity.getDataRegistro()!= null) {
+			dpDataRegistro.setValue(LocalDate.ofInstant( entity.getDataRegistro().toInstant(), ZoneId.systemDefault()));
+		}
 	}
 	
 	@FXML
@@ -134,6 +168,10 @@ public class ContasFormController implements Initializable{
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtCodigo);
 		Constraints.setTextFieldMaxLength(txtDescricao, 60);
+		Constraints.setTextFieldDouble(txtValor);
+		Utils.formatDatePicker(dpDataRegistro, "dd/MM/yyyy");
+		
+		
 	}
 	
 	@Override
