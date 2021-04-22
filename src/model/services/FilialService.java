@@ -15,4 +15,12 @@ public class FilialService {
 		return dao.findAll();
 	}
 	
+	public void saveOrUpdate(Filial obj) {
+		if(obj.getCodigo()==null) {
+			dao.insert(obj);
+		}else {
+			dao.update(obj);
+		}
+	}
+	
 }

@@ -93,6 +93,8 @@ public class ListaFilialController implements Initializable{
 			
 			FilialFormController controller = loader.getController();
 			controller.setFilial(obj);
+			controller.setFilialService(new FilialService());
+			
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
