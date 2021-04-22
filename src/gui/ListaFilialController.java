@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Filial;
 import model.services.FilialService;
 
-public class ListaFilialController implements Initializable{
+public class ListaFilialController implements Initializable, DataChangeListener{
 
 	private FilialService service; 
 	
@@ -95,6 +96,8 @@ public class ListaFilialController implements Initializable{
 			controller.setFilial(obj);
 			controller.setFilialService(new FilialService());
 			
+			controller.subscribeDataChangeListener(this);
+			
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
@@ -108,6 +111,11 @@ public class ListaFilialController implements Initializable{
 		} catch(IOException e) {
 			Alerts.showAlert("IO Exception", "Erro ao carregar tela", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 
 }
