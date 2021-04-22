@@ -32,6 +32,8 @@
             <Label text="Descricao" GridPane.rowIndex="1" />
             <TextField fx:id="txtCodigo" editable="false" GridPane.columnIndex="1" />
             <TextField fx:id="txtDescricao" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtValor" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="comboBoxFilial" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorDescricao" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
@@ -42,9 +44,7 @@
             <Label GridPane.rowIndex="3" />
             <Label text="Valor" GridPane.rowIndex="2" />
             <Label text="Filial" GridPane.rowIndex="3" />
-            <TextField fx:id="txtValor" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorValor" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ComboBox fx:id="comboBoxFilial" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>
