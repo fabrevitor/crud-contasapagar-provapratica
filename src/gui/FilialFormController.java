@@ -3,7 +3,9 @@ package gui;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import db.DbException;
 import gui.listeners.DataChangeListener;
@@ -18,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Filial;
+import model.exceptions.ValidationException;
 import model.services.FilialService;
 
 public class FilialFormController implements Initializable{
@@ -60,8 +63,19 @@ public class FilialFormController implements Initializable{
 	private Filial getFormData() {
 		Filial obj = new Filial();
 		
+		ValidationException exception = new ValidationException("Erro na validação.");
+		
 		obj.setCodigo(Utils.tryParseToInt(txtCodigo.getText()));
+		
+		if(txtNome.getText()==null||txtNome.getText().trim().equals("")) {
+			exception.addError("Nome", "O campo não pode ser vazio.");
+		}
+		
 		obj.setNome(txtNome.getText());
+		
+		if(exception.getErrors().size() > 0) {
+			throw exception;
+		}
 		
 		return obj;
 	}
@@ -94,10 +108,13 @@ public class FilialFormController implements Initializable{
 			notifyDataChangeListeners();
 			
 			Utils.currentStage(event).close();
-		} catch (DbException e) {
+		}
+		catch(ValidationException e){
+			setErrorMessages(e.getErrors());
+		} 
+		catch (DbException e) {
 			Alerts.showAlert("Erro ao salvar o objeto", null, e.getMessage(), AlertType.ERROR);
-		}		
-		
+		}	
 	}
 	
 	private void notifyDataChangeListeners() {
@@ -122,5 +139,13 @@ public class FilialFormController implements Initializable{
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
+	}
+	
+	private void setErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+		
+		if (fields.contains("Nome")) {
+			labelErrorNome.setText(errors.get("Nome"));
+		}
 	}
 }
