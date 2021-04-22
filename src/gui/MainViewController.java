@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.ContasService;
 import model.services.FilialService;
 
 public class MainViewController implements Initializable {
@@ -42,6 +43,10 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemContasAction() {
 		System.out.println("DebugConsole: onMenuItemContasAction");
+		loadView("/gui/ListaContas.fxml", (ListaContasController controller) -> {
+			controller.setContasService(new ContasService());
+			controller.updateTableView();
+		});
 	}
 	
 	// Como o MenuItem Sobre não tem ação alguma, envia a Expressão Lambda vazia.
