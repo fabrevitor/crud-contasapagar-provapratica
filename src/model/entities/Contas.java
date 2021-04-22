@@ -10,7 +10,7 @@ public class Contas implements Serializable {
 	private Integer codigo;
 	private String descricao;
 	private Date dataRegistro;
-	private boolean foiPago;
+	private Boolean foiPago;
 	private Double valor;
 	
 	private Filial filial;
@@ -18,7 +18,7 @@ public class Contas implements Serializable {
 	public Contas() {
 	}
 
-	public Contas(Integer codigo, String descricao, Date dataRegistro, boolean foiPago, Double valor, Filial filial) {
+	public Contas(Integer codigo, String descricao, Date dataRegistro, Boolean foiPago, Double valor, Filial filial) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.dataRegistro = dataRegistro;
@@ -55,7 +55,7 @@ public class Contas implements Serializable {
 		return foiPago;
 	}
 
-	public void setFoiPago(boolean foiPago) {
+	public void setFoiPago(Boolean foiPago) {
 		this.foiPago = foiPago;
 	}
 	

@@ -46,10 +46,10 @@ public class ListaFilialController implements Initializable, DataChangeListener 
 	private TableColumn<Filial, String> tableColumnNome;
 
 	@FXML
-	TableColumn<Filial, Filial> tableColumnEDIT;
+	private TableColumn<Filial, Filial> tableColumnEDIT;
 
 	@FXML
-	TableColumn<Filial, Filial> tableColumnREMOVE;
+	private TableColumn<Filial, Filial> tableColumnREMOVE;
 
 	@FXML
 	private Button btNovo;

@@ -1,6 +1,7 @@
 package gui;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -39,12 +40,21 @@ public class ListaContasController implements Initializable, DataChangeListener 
 
 	@FXML
 	private TableColumn<Contas, String> tableColumnDescricao;
+	
+	@FXML
+	private TableColumn<Contas, Date> tableColumnDataRegistro;
 
 	@FXML
-	TableColumn<Contas, Contas> tableColumnEDIT;
+	private TableColumn<Contas, Boolean> tableColumnFoiPago;
+	
+	@FXML
+	private TableColumn<Contas, Double> tableColumnValor;
+	
+	@FXML
+	private TableColumn<Contas, Contas> tableColumnEDIT;
 
 	@FXML
-	TableColumn<Contas, Contas> tableColumnREMOVE;
+	private TableColumn<Contas, Contas> tableColumnREMOVE;
 
 	@FXML
 	private Button btNovo;
@@ -74,6 +84,15 @@ public class ListaContasController implements Initializable, DataChangeListener 
 	private void initializeNodes() {
 		tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+		tableColumnDataRegistro.setCellValueFactory(new PropertyValueFactory<>("dataRegistro"));
+		// Formata Data
+		Utils.formatTableColumnDate(tableColumnDataRegistro, "dd/MM/yyyy");
+		
+		tableColumnFoiPago.setCellValueFactory(new PropertyValueFactory<>("foiPago"));
+		tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+		//Formata Double
+		Utils.formatTableColumnDouble(tableColumnValor, 2);
+		
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewContas.prefHeightProperty().bind(stage.heightProperty());

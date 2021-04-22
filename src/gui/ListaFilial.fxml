@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="290.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListaFilialController">
+<VBox prefHeight="331.0" prefWidth="588.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListaFilialController">
    <children>
       <Label text="Cadastro de Filial">
          <font>
@@ -24,7 +24,7 @@
           <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNovoAction" text="Novo" />
          </items>
       </ToolBar>
-      <TableView fx:id="tableViewFilial" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewFilial" prefHeight="205.0" prefWidth="430.0">
         <columns>
           <TableColumn fx:id="tableColumnCodigo" prefWidth="75.0" text="Código" />
           <TableColumn fx:id="tableColumnNome" prefWidth="75.0" text="Nome" />

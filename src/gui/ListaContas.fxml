@@ -28,6 +28,9 @@
         <columns>
           <TableColumn fx:id="tableColumnCodigo" prefWidth="75.0" text="Código" />
           <TableColumn fx:id="tableColumnDescricao" prefWidth="75.0" text="Descrição" />
+          	<TableColumn fx:id="tableColumnDataRegistro" prefWidth="75.0" text="Data Registro" />
+            <TableColumn fx:id="tableColumnFoiPago" prefWidth="75.0" text="Pago?" />
+            <TableColumn fx:id="tableColumnValor" prefWidth="75.0" text="Valor" />
             <TableColumn fx:id="tableColumnEDIT" prefWidth="75.0" />
             <TableColumn fx:id="tableColumnREMOVE" prefWidth="75.0" />
         </columns>
