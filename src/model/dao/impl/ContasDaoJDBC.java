@@ -33,14 +33,17 @@ public class ContasDaoJDBC implements ContasDao {
 					"INSERT INTO contas "
 					+ "(descricao, dataRegistro, foiPago, valor, filialCodigo) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?)",
+					+ "(?, CURRENT_TIMESTAMP(), false, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			
 			st.setString(1, obj.getDescricao());
-			st.setDate(2, new java.sql.Date(obj.getDataRegistro().getTime()));
-			st.setBoolean(3, obj.getFoiPago());
-			st.setDouble(4, obj.getValor());
-			st.setInt(5, obj.getFilial().getCodigo());
+			//Fixo CURRENT_TIME_STAMP
+			//st.setDate(2, new java.sql.Date(obj.getDataRegistro().getTime()));
+			//Fixo False
+			//st.setBoolean(2, obj.getFoiPago());
+			//st.setBoolean(2, false);
+			st.setDouble(2, obj.getValor());
+			st.setInt(3, obj.getFilial().getCodigo());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -70,15 +73,13 @@ public class ContasDaoJDBC implements ContasDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE contas "
-					+ "SET descricao = ?, dataRegistro = ?, foiPago = ?, valor = ?, filialCodigo = ? "
+					+ "SET descricao = ?, valor = ?, filialCodigo = ? "
 					+ "WHERE codigo = ?");
 			
 			st.setString(1, obj.getDescricao());
-			st.setDate(2, new java.sql.Date(obj.getDataRegistro().getTime()));
-			st.setBoolean(3, obj.getFoiPago());
-			st.setDouble(4, obj.getValor());
-			st.setInt(5, obj.getFilial().getCodigo());
-			st.setInt(6, obj.getCodigo());
+			st.setDouble(2, obj.getValor());
+			st.setInt(3, obj.getFilial().getCodigo());
+			st.setInt(4, obj.getCodigo());
 			
 			st.executeUpdate();
 		}

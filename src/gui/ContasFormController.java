@@ -1,8 +1,6 @@
 package gui;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -22,9 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -53,12 +49,6 @@ public class ContasFormController implements Initializable {
 	private TextField txtDescricao;
 
 	@FXML
-	private DatePicker dpDataRegistro;
-
-	@FXML
-	private CheckBox chkFoiPago;
-
-	@FXML
 	private TextField txtValor;
 
 	@FXML
@@ -66,12 +56,6 @@ public class ContasFormController implements Initializable {
 
 	@FXML
 	private Label labelErrorDescricao;
-
-	@FXML
-	private Label labelErrorDataRegistro;
-
-	@FXML
-	private Label labelErrorFoiPago;
 
 	@FXML
 	private Label labelErrorValor;
@@ -115,6 +99,14 @@ public class ContasFormController implements Initializable {
 			throw exception;
 		}
 
+		if (txtValor.getText() == null || txtValor.getText().trim().equals("")) {
+			exception.addError("Valor", "O campo não pode ser vazio.");
+		}
+		
+		obj.setValor(Utils.tryParseToDouble(txtValor.getText()));
+		
+		obj.setFilial(comboBoxFilial.getValue());
+		
 		return obj;
 	}
 
@@ -130,13 +122,6 @@ public class ContasFormController implements Initializable {
 		Locale.setDefault(Locale.US);
 		txtValor.setText(String.format("%.2f", entity.getValor()));
 
-		// TODO
-		// Comentei o Set do CheckBox pois deu NullPointerException.
-		// chkFoiPago.setSelected(entity.getFoiPago());
-		
-		if (entity.getDataRegistro() != null) {
-			dpDataRegistro.setValue(LocalDate.ofInstant(entity.getDataRegistro().toInstant(), ZoneId.systemDefault()));
-		}
 		
 		if(entity.getFilial() == null) {
 			comboBoxFilial.getSelectionModel().selectFirst();
@@ -195,8 +180,8 @@ public class ContasFormController implements Initializable {
 		Constraints.setTextFieldInteger(txtCodigo);
 		Constraints.setTextFieldMaxLength(txtDescricao, 60);
 		Constraints.setTextFieldDouble(txtValor);
-		Utils.formatDatePicker(dpDataRegistro, "dd/MM/yyyy");
-
+		
+		initializeComboBoxFilial();
 	}
 
 	@Override
@@ -209,10 +194,19 @@ public class ContasFormController implements Initializable {
 
 		if (fields.contains("Descricao")) {
 			labelErrorDescricao.setText(errors.get("Descricao"));
+		} else {
+			labelErrorDescricao.setText("");
 		}
+		
+		if (fields.contains("Valor")) {
+			labelErrorValor.setText(errors.get("Valor"));
+		} else {
+			labelErrorValor.setText("");
+		}
+		
 	}
 
-	private void initializeComboBoxDepartment() {
+	private void initializeComboBoxFilial() {
 		Callback<ListView<Filial>, ListCell<Filial>> factory = lv -> new ListCell<Filial>() {
 			@Override
 			protected void updateItem(Filial item, boolean empty) {
