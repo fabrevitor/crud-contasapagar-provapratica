@@ -20,7 +20,7 @@
                 </Menu>
                   <Menu mnemonicParsing="false" text="Saldo Total">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Verificar" />
+                      <MenuItem fx:id="menuItemVerificar" mnemonicParsing="false" onAction="#onMenuItemVerificarAction" text="Verificar" />
                     </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">

@@ -52,6 +52,17 @@ public class MainViewController implements Initializable {
 		});
 	}
 	
+	
+	@FXML
+	public void onMenuItemVerificarAction() {
+		System.out.println("DebugConsole: onMenuItemVerificarAction");
+		loadView("/gui/Verificar.fxml", /*(ListaContasController controller)*/x -> {
+			//controller.setContasService(new ContasService());
+			//controller.updateTableView();
+		});
+	}
+	
+	
 	// Como o MenuItem Sobre não tem ação alguma, envia a Expressão Lambda vazia.
 	@FXML
 	public void onMenuItemSobreAction() {
