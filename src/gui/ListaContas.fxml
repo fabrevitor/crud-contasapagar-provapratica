@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="408.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListaContasController">
+<VBox prefHeight="433.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListaContasController">
    <children>
       <Label text="Cadastro de Contas">
          <font>
@@ -24,16 +24,17 @@
           <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNovoAction" text="Novo" />
          </items>
       </ToolBar>
-      <TableView fx:id="tableViewContas" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewContas" prefHeight="236.0" prefWidth="720.0">
         <columns>
-          <TableColumn fx:id="tableColumnCodigo" prefWidth="58.0" text="Código" />
-          <TableColumn fx:id="tableColumnDescricao" prefWidth="100.0" text="Descrição" />
-          	<TableColumn fx:id="tableColumnDataRegistro" prefWidth="92.0" text="Data Registro" />
-            <TableColumn fx:id="tableColumnFoiPago" prefWidth="52.0" text="Pago?" />
-            <TableColumn fx:id="tableColumnValor" prefWidth="74.0" text="Valor" />
-            <TableColumn fx:id="tableColumnFilial" prefWidth="117.0" text="Filial" />
-            <TableColumn fx:id="tableColumnEDIT" minWidth="0.0" prefWidth="61.0" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="77.0" />
+          <TableColumn fx:id="tableColumnCodigo" prefWidth="50.0" text="Código" />
+          <TableColumn fx:id="tableColumnDescricao" prefWidth="101.0" text="Descrição" />
+          	<TableColumn fx:id="tableColumnDataRegistro" prefWidth="93.0" text="Data Registro" />
+            <TableColumn fx:id="tableColumnFoiPago" prefWidth="53.0" text="Pago?" />
+            <TableColumn fx:id="tableColumnValor" prefWidth="69.0" text="Valor" />
+            <TableColumn fx:id="tableColumnFilial" prefWidth="137.0" text="Filial" />
+            <TableColumn fx:id="tableColumnPAGAR" prefWidth="65.0" />
+            <TableColumn fx:id="tableColumnEDIT" minWidth="0.0" prefWidth="58.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="90.0" />
         </columns>
       </TableView>
    </children>

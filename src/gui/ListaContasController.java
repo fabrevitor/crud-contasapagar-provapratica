@@ -46,19 +46,22 @@ public class ListaContasController implements Initializable, DataChangeListener 
 
 	@FXML
 	private TableColumn<Contas, String> tableColumnDescricao;
-	
+
 	@FXML
 	private TableColumn<Contas, Date> tableColumnDataRegistro;
 
 	@FXML
 	private TableColumn<Contas, Boolean> tableColumnFoiPago;
-	
+
 	@FXML
 	private TableColumn<Contas, Double> tableColumnValor;
-	
+
 	@FXML
 	private TableColumn<Contas, Integer> tableColumnFilial;
-	
+
+	@FXML
+	private TableColumn<Contas, Contas> tableColumnPAGAR;
+
 	@FXML
 	private TableColumn<Contas, Contas> tableColumnEDIT;
 
@@ -96,14 +99,14 @@ public class ListaContasController implements Initializable, DataChangeListener 
 		tableColumnDataRegistro.setCellValueFactory(new PropertyValueFactory<>("dataRegistro"));
 		// Formata Data
 		Utils.formatTableColumnDate(tableColumnDataRegistro, "dd/MM/yyyy");
-		
+
 		tableColumnFoiPago.setCellValueFactory(new PropertyValueFactory<>("foiPago"));
 		tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
-		//Formata Double
+		// Formata Double
 		Utils.formatTableColumnDouble(tableColumnValor, 2);
-		
+
 		tableColumnFilial.setCellValueFactory(new PropertyValueFactory<>("filNome"));
-		
+
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewContas.prefHeightProperty().bind(stage.heightProperty());
 
@@ -117,8 +120,7 @@ public class ListaContasController implements Initializable, DataChangeListener 
 		List<Contas> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewContas.setItems(obsList);
-		initEditButtons();
-		initRemoveButtons();
+		initAllButtons();
 
 	}
 
@@ -191,21 +193,51 @@ public class ListaContasController implements Initializable, DataChangeListener 
 		});
 	}
 
+	private void initPagarButtons() {
+		tableColumnPAGAR.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnPAGAR.setCellFactory(param -> new TableCell<Contas, Contas>() {
+			private final Button button = new Button("Pagar");
+
+			@Override
+			protected void updateItem(Contas obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(event -> pagarConta(obj));
+			}
+		});
+	}
+	
+	private void initAllButtons() {
+		initEditButtons();
+		initRemoveButtons();
+		initPagarButtons();
+	}
+
 	private void removeEntity(Contas obj) {
-		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação", "Você realmente deseja deletar esse registro?");
-		
-		if(result.get()==ButtonType.OK) {
+		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação",
+				"Você realmente deseja deletar esse registro?");
+
+		if (result.get() == ButtonType.OK) {
 			if (service == null) {
 				throw new IllegalStateException("Serviço nulo.");
 			}
 			try {
 				service.remove(obj);
 				updateTableView();
-			} catch(DbIntegrityException e) {
+			} catch (DbIntegrityException e) {
 				Alerts.showAlert("Erro ao remover", null, e.getMessage(), AlertType.ERROR);
 			}
-			
+
 		}
+	}
+
+	private void pagarConta(Contas obj) {
+		System.out.println("DebugConsole: pagarConta. Valor:" + obj.getValor() +"/ Id: " + obj.getCodigo());
+
 	}
 
 }
