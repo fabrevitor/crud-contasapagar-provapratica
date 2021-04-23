@@ -7,11 +7,9 @@ OpenJDK 11 (LTS) HotSpot: https://adoptopenjdk.net/
 
 Eclipse: https://www.eclipse.org/downloads/
 
-Apache: https://tomcat.apache.org/download-10.cgi
-
 MySQL: https://dev.mysql.com/downloads/installer/
 
-JavaFX: Site Gluon
+JavaFX: Site Gluon -> JavaFX11
 
 Gerar o Executável:
 
@@ -22,3 +20,4 @@ Gerar o Executável:
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 Arquivo de Criação do Banco -> contasdb.sql
+------------------------------------------------------------------------------------------------------------------------------------------------
