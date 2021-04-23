@@ -18,7 +18,6 @@ Gerar o Executável:
 
 1) Exportar o  Java/Runnable JAR file do Projeto selecionando a classe Main.
 2) Colocar o dbproperties/MySQL Connector/JavaFX SDK/Java SDK na pasta.
-Foi colocado um exemplo no Projeto do Git do que precisa para rodar em um "cliente". Pasta ZIP: dist.
 
 No db.properties colocar os dados de acesso ao seu banco de dados mySQL. No meu caso utilizei login e senha "root".
 O banco de dados é criado com o arquivo contasdb.sql
