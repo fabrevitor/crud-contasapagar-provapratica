@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.AttributeLocalService;
 import model.services.ContasService;
 import model.services.FilialService;
 
@@ -56,9 +57,9 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemVerificarAction() {
 		System.out.println("DebugConsole: onMenuItemVerificarAction");
-		loadView("/gui/Verificar.fxml", /*(ListaContasController controller)*/x -> {
-			//controller.setContasService(new ContasService());
-			//controller.updateTableView();
+		loadView("/gui/Verificar.fxml", (AttributeLocalVerificarSaldoController controller) -> {
+			controller.setAttributeLocalService(new AttributeLocalService());
+			controller.getLabelData();
 		});
 	}
 	
