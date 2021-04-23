@@ -1,5 +1,5 @@
 # crud-contasapagar-provapratica
-CRUD de Contas a Pagar desenvolvido para uma prova prática na Linguagem Java utilizando JavFX para as telas.
+CRUD de Contas a Pagar desenvolvido para uma prova prática na Linguagem Java utilizando JavaFX para as telas.
 
 Desenvolvido com apoio do material do Curso de Java da UDEMY do Nélio Alves.
 
