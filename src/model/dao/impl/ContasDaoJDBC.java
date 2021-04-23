@@ -146,6 +146,7 @@ public class ContasDaoJDBC implements ContasDao {
 		obj.setValor(rs.getDouble("valor"));
 		obj.setDataRegistro(new java.util.Date(rs.getTimestamp("DataRegistro").getTime()));
 		obj.setFilial(fil);
+		obj.setFilNome(rs.getString("filNome"));
 		return obj;
 	}
 

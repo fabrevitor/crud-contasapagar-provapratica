@@ -14,17 +14,19 @@ public class Contas implements Serializable {
 	private Double valor;
 	
 	private Filial filial;
+	private String filNome;
 	
 	public Contas() {
 	}
 
-	public Contas(Integer codigo, String descricao, Date dataRegistro, Boolean foiPago, Double valor, Filial filial) {
+	public Contas(Integer codigo, String descricao, Date dataRegistro, Boolean foiPago, Double valor, Filial filial, String filNome) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.dataRegistro = dataRegistro;
 		this.foiPago = foiPago;
 		this.valor = valor;
 		this.filial = filial;
+		this.filNome = filNome;
 	}
 
 	public Integer getCodigo() {
@@ -105,4 +107,13 @@ public class Contas implements Serializable {
 		return "Contas [codigo=" + codigo + ", descricao=" + descricao + ", dataRegistro=" + dataRegistro + ", foiPago=" + foiPago 
 				+ ", valor=" + valor + ", filial=" + filial + "]";
 	}
+
+	public String getFilNome() {
+		return filNome;
+	}
+
+	public void setFilNome(String filNome) {
+		this.filNome = filNome;
+	}
+
 }

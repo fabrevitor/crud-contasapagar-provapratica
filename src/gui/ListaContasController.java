@@ -57,6 +57,9 @@ public class ListaContasController implements Initializable, DataChangeListener 
 	private TableColumn<Contas, Double> tableColumnValor;
 	
 	@FXML
+	private TableColumn<Contas, Integer> tableColumnFilial;
+	
+	@FXML
 	private TableColumn<Contas, Contas> tableColumnEDIT;
 
 	@FXML
@@ -99,6 +102,7 @@ public class ListaContasController implements Initializable, DataChangeListener 
 		//Formata Double
 		Utils.formatTableColumnDouble(tableColumnValor, 2);
 		
+		tableColumnFilial.setCellValueFactory(new PropertyValueFactory<>("filNome"));
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewContas.prefHeightProperty().bind(stage.heightProperty());
