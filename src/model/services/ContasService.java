@@ -26,5 +26,10 @@ public class ContasService {
 	public void remove(Contas obj) {
 		dao.deleteById(obj.getCodigo());
 	}
+
+	public void pagar(Contas obj, Double saldo) {
+		dao.pagar(obj.getCodigo(), saldo);
+		
+	}
 	
 }

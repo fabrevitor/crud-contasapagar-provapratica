@@ -237,4 +237,29 @@ public class ContasDaoJDBC implements ContasDao {
 			DB.closeResultSet(rs);
 		}
 	}
+
+	@Override
+	public void pagar(Integer codigo, Double saldo) {
+		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"UPDATE contas "
+					+ "SET foiPago = true, dataPagamento = CURRENT_TIMESTAMP(), saldoAntes = ?, saldoDepois = ? - valor " 
+					+ "WHERE codigo = ?");
+			
+			st.setDouble(1, saldo);
+			st.setDouble(2, saldo);
+			st.setInt(3, codigo);
+			
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+		
+	}
 }

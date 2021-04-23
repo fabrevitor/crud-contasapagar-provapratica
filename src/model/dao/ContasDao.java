@@ -13,4 +13,5 @@ public interface ContasDao {
 	Contas findById(Integer id);
 	List<Contas> findAll();
 	List<Contas> findByFilial(Filial filial);
+	void pagar(Integer codigo, Double saldo);
 }

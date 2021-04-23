@@ -72,6 +72,9 @@ public class ListaContasController implements Initializable, DataChangeListener 
 	private Button btNovo;
 
 	private ObservableList<Contas> obsList;
+	
+	// Inicializando valor do Saldo
+	private Double saldo = 250000.0;
 
 	@FXML
 	public void onBtNovoAction(ActionEvent event) {
@@ -237,7 +240,29 @@ public class ListaContasController implements Initializable, DataChangeListener 
 
 	private void pagarConta(Contas obj) {
 		System.out.println("DebugConsole: pagarConta. Valor:" + obj.getValor() +"/ Id: " + obj.getCodigo());
+		
+		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação", "Você realmente deseja pagar/dar baixa nessa conta? Valor: " + obj.getValor());
+		
+		if (result.get() == ButtonType.OK) {
+			if (service == null) {
+				throw new IllegalStateException("Serviço nulo.");
+			}
+			try {
+				if(obj.getFoiPago() == true) {
+					Alerts.showAlert("Erro ao pagar", null, "Essa conta já foi paga.", AlertType.ERROR);
+					updateTableView();
+				} else {
+					System.out.println("DebugConsole: service.pagar/ Obj: " + obj + " Saldo: " + saldo);
+					service.pagar(obj, saldo);
+				}
+				
+				updateTableView();
+			} catch (DbIntegrityException e) {
+				Alerts.showAlert("Erro ao pagar", null, e.getMessage(), AlertType.ERROR);
+			}
 
+		}
 	}
+
 
 }
