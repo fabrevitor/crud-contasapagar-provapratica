@@ -264,5 +264,23 @@ public class ContasDaoJDBC implements ContasDao {
 			DB.closeStatement(st);
 		}
 		
+		
+		PreparedStatement stSaldo = null;
+		try {
+			stSaldo = conn.prepareStatement("UPDATE attribute_local SET saldoTotal = saldoTotal - (SELECT valor FROM contas where codigo = ?) WHERE codigo = 1");
+			
+		
+			
+			stSaldo.setInt(1, codigo);
+			stSaldo.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(stSaldo);
+		}
+		
+		
 	}
 }

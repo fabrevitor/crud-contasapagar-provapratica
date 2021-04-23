@@ -30,7 +30,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.entities.AttributeLocal;
 import model.entities.Contas;
+import model.services.AttributeLocalService;
 import model.services.ContasService;
 import model.services.FilialService;
 
@@ -81,9 +83,13 @@ public class ListaContasController implements Initializable, DataChangeListener 
 	private Button btNovo;
 
 	private ObservableList<Contas> obsList;
+
+	private AttributeLocalService serviceAttLocal = new AttributeLocalService();
+	
+	private AttributeLocal attLocal = serviceAttLocal.find();
 	
 	// Inicializando valor do Saldo
-	private Double saldo = 250000.0;
+	private Double saldo = attLocal.getSaldoTotal();
 
 	@FXML
 	public void onBtNovoAction(ActionEvent event) {
