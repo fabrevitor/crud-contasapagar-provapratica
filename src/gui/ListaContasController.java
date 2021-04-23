@@ -60,6 +60,15 @@ public class ListaContasController implements Initializable, DataChangeListener 
 	private TableColumn<Contas, Integer> tableColumnFilial;
 
 	@FXML
+	private TableColumn<Contas, Date> tableColumnDataPagamento;
+	
+	@FXML
+	private TableColumn<Contas, Double> tableColumnSaldoAntes;
+	
+	@FXML
+	private TableColumn<Contas, Double> tableColumnSaldoDepois;
+	
+	@FXML
 	private TableColumn<Contas, Contas> tableColumnPAGAR;
 
 	@FXML
@@ -98,18 +107,28 @@ public class ListaContasController implements Initializable, DataChangeListener 
 
 	private void initializeNodes() {
 		tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+		
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+		
 		tableColumnDataRegistro.setCellValueFactory(new PropertyValueFactory<>("dataRegistro"));
-		// Formata Data
 		Utils.formatTableColumnDate(tableColumnDataRegistro, "dd/MM/yyyy");
-
+		
 		tableColumnFoiPago.setCellValueFactory(new PropertyValueFactory<>("foiPago"));
+		
 		tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
-		// Formata Double
 		Utils.formatTableColumnDouble(tableColumnValor, 2);
 
 		tableColumnFilial.setCellValueFactory(new PropertyValueFactory<>("filNome"));
-
+		
+		tableColumnDataPagamento.setCellValueFactory(new PropertyValueFactory<>("dataPagamento"));
+		Utils.formatTableColumnDate(tableColumnDataPagamento, "dd/MM/yyyy");
+		
+		tableColumnSaldoAntes.setCellValueFactory(new PropertyValueFactory<>("saldoAntes"));
+		Utils.formatTableColumnDouble(tableColumnSaldoAntes, 2);
+		
+		tableColumnSaldoDepois.setCellValueFactory(new PropertyValueFactory<>("saldoDepois"));
+		Utils.formatTableColumnDouble(tableColumnSaldoDepois, 2);
+		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewContas.prefHeightProperty().bind(stage.heightProperty());
 
@@ -222,7 +241,7 @@ public class ListaContasController implements Initializable, DataChangeListener 
 
 	private void removeEntity(Contas obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação",
-				"Você realmente deseja deletar esse registro?");
+				"Você realmente deseja deletar esse registro? O saldo não será alterado ao deletar.");
 
 		if (result.get() == ButtonType.OK) {
 			if (service == null) {

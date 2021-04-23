@@ -18,6 +18,11 @@
                     <MenuItem fx:id="menuItemContas" mnemonicParsing="false" onAction="#onMenuItemContasAction" text="Contas" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Saldo Total">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Verificar" />
+                    </items>
+                  </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">
                   <items>
                     <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobreAction" text="Sobre" />

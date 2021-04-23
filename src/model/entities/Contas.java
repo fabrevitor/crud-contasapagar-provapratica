@@ -12,11 +12,30 @@ public class Contas implements Serializable {
 	private Date dataRegistro;
 	private Boolean foiPago;
 	private Double valor;
+	private Date dataPagamento;
+	private Double saldoAntes;
+	private Double saldoDepois;
 	
 	private Filial filial;
 	private String filNome;
 	
 	public Contas() {
+	}
+
+	
+	public Contas(Integer codigo, String descricao, Date dataRegistro, Boolean foiPago, Double valor,
+			Date dataPagamento, Double saldoAntes, Double saldoDepois, Filial filial, String filNome) {
+		super();
+		this.codigo = codigo;
+		this.descricao = descricao;
+		this.dataRegistro = dataRegistro;
+		this.foiPago = foiPago;
+		this.valor = valor;
+		this.dataPagamento = dataPagamento;
+		this.saldoAntes = saldoAntes;
+		this.saldoDepois = saldoDepois;
+		this.filial = filial;
+		this.filNome = filNome;
 	}
 
 	public Contas(Integer codigo, String descricao, Date dataRegistro, Boolean foiPago, Double valor, Filial filial, String filNome) {
@@ -104,9 +123,12 @@ public class Contas implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Contas [codigo=" + codigo + ", descricao=" + descricao + ", dataRegistro=" + dataRegistro + ", foiPago=" + foiPago 
-				+ ", valor=" + valor + ", filial=" + filial + "]";
+		return "Contas [codigo=" + codigo + ", descricao=" + descricao + ", dataRegistro=" + dataRegistro + ", foiPago="
+				+ foiPago + ", valor=" + valor + ", dataPagamento=" + dataPagamento + ", saldoAntes=" + saldoAntes
+				+ ", saldoDepois=" + saldoDepois + ", filial=" + filial + ", filNome=" + filNome + "]";
 	}
+	
+	
 
 	public String getFilNome() {
 		return filNome;
@@ -114,6 +136,30 @@ public class Contas implements Serializable {
 
 	public void setFilNome(String filNome) {
 		this.filNome = filNome;
+	}
+
+	public Date getDataPagamento() {
+		return dataPagamento;
+	}
+
+	public void setDataPagamento(Date dataPagamento) {
+		this.dataPagamento = dataPagamento;
+	}
+
+	public Double getSaldoAntes() {
+		return saldoAntes;
+	}
+
+	public void setSaldoAntes(Double saldoAntes) {
+		this.saldoAntes = saldoAntes;
+	}
+
+	public Double getSaldoDepois() {
+		return saldoDepois;
+	}
+
+	public void setSaldoDepois(Double saldoDepois) {
+		this.saldoDepois = saldoDepois;
 	}
 
 }

@@ -28,6 +28,9 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemContas;
 	
 	@FXML
+	private MenuItem menuItemVerificar;
+	
+	@FXML
 	private MenuItem menuItemSobre;
 	
 	// Utilizando Expressão Lambda para fazer a ação do Botão de Cadastrar FILIAL

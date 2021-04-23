@@ -144,9 +144,12 @@ public class ContasDaoJDBC implements ContasDao {
 		obj.setDescricao(rs.getString("descricao"));
 		obj.setFoiPago(rs.getBoolean("foiPago"));
 		obj.setValor(rs.getDouble("valor"));
-		obj.setDataRegistro(new java.util.Date(rs.getTimestamp("DataRegistro").getTime()));
+		obj.setDataRegistro(new java.util.Date(rs.getTimestamp("dataRegistro").getTime()));
 		obj.setFilial(fil);
 		obj.setFilNome(rs.getString("filNome"));
+		obj.setDataPagamento(new java.util.Date(rs.getTimestamp("dataPagamento").getTime()));
+		obj.setSaldoAntes(rs.getDouble("saldoAntes"));
+		obj.setSaldoDepois(rs.getDouble("saldoDepois"));
 		return obj;
 	}
 
