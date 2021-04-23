@@ -18,7 +18,7 @@ Gerar o Executável:
 
 1) Exportar o  Java/Runnable JAR file do Projeto selecionando a classe Main.
 2) Colocar o dbproperties/MySQL Connector/JavaFX SDK/Java SDK na pasta.
-Foi colocado um exemplo no Projeto do Git do que precisa para rodar em um "cliente". Pasta: dist.
+Foi colocado um exemplo no Projeto do Git do que precisa para rodar em um "cliente". Pasta ZIP: dist.
 
 No db.properties colocar os dados de acesso ao seu banco de dados mySQL. No meu caso utilizei login e senha "root".
 O banco de dados é criado com o arquivo contasdb.sql
@@ -36,7 +36,7 @@ Para rodar o Executável:
 Caso queira mudar o ícone -> Botão direito em cima do atalho criado > Trocar o destino para o comando do item 6.
 
 
-Colocado exemplo da Pasta crudContas.jar, crudContas.bat, e crudContas - Atalho no Projeto do Git. Pasta: crudContas
+Colocado exemplo da Pasta crudContas.jar, crudContas.bat, e crudContas - Atalho no Projeto do Git. Pasta ZIP: crudContas
 
 Principais Telas do Sistema:
 
